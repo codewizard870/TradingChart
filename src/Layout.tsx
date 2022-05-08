@@ -5,7 +5,7 @@ import { VStack, Flex, useDisclosure, useEventListenerMap } from '@chakra-ui/rea
 const Layout = () => {
   return (
     <Flex
-      background={'linear-gradient(rgba(255,255,255,.95),rgba(250,250,250,.95))'}
+      bg='#054ba9'
       justify={'center'}
       w={'100%'}
     >
@@ -13,7 +13,7 @@ const Layout = () => {
         fontFamily={'SF-Pro-Text'}
         fontStyle={'normal'}
         spacing={'10px'}
-        color={'#413e66'}
+        color={'white'}
         w = {'100%'}
       >
         <Outlet />

@@ -3,6 +3,7 @@ import React, { FunctionComponent } from 'react';
 import ReactDOM from "react-dom";
 import { format } from "d3-format";
 import { timeFormat } from "d3-time-format";
+
 import {
   elderRay,
   ema,
@@ -33,13 +34,6 @@ interface Props {
   initialData: any[]
 }
 
-function getDateString(time: number) {
-  const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-  let datetime = new Date(time)
-  return (month[datetime.getMonth()] + "   " + datetime.getDate() + " , " + datetime.getFullYear());
-}
-
 const TradingChart: FunctionComponent<Props> = ({ initialData }) => {
   const ScaleProvider = discontinuousTimeScaleProviderBuilder().inputDateAccessor(
     (d) => new Date(d.time)
@@ -57,7 +51,7 @@ const TradingChart: FunctionComponent<Props> = ({ initialData }) => {
   const xExtents = [min, max + 5];
 
   const candleChartExtents = (data: any) => {
-    return [data.high, data.low];
+    return [data.high+20, data.low];
   };
 
   const gridHeight = height - margin.top - margin.bottom;
@@ -87,11 +81,10 @@ const TradingChart: FunctionComponent<Props> = ({ initialData }) => {
       xExtents={xExtents}
       zoomAnchor={lastVisibleItemBasedZoomAnchor}
     >
-      <Chart id={3} height={chartHeight} yExtents={candleChartExtents}>
+      <Chart id={3} height={chartHeight} yExtents={candleChartExtents}  >
         <XAxis
           showGridLines
           showTickLabel={true}
-          // tickFormat={xAxisFormat} 
           tickLabelFill="white"
           gridLinesStrokeStyle="black"
         />
