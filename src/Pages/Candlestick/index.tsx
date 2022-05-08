@@ -36,9 +36,14 @@ const Candlestick: FunctionComponent = (props) => {
       );
       return res
     }
-    fectchPrice().then((res:any) => {
-      setInfo(res.data.result)
-    })
+    const fetch = () => {
+      fectchPrice().then((res:any) => {
+        setInfo(res.data.result)
+      })
+    }
+    fetch();
+
+    setInterval(fetch, 1000);
   },[])
 
   return (
