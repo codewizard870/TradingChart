@@ -43,7 +43,7 @@ const Candlestick: FunctionComponent = (props) => {
     }
     fetch();
 
-    setInterval(fetch, 1000);
+    // setInterval(fetch, 1000);
   },[])
 
   return (
