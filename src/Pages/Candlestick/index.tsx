@@ -19,8 +19,9 @@ const Candlestick: FunctionComponent = (props) => {
     const fetchHistoric = async () => {
       const period = [300, 900, 3600, 14400, 86400];
       const res = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://ftx.com/api/markets/LUNA/USD/candles?resolution=${period[index]}`
+        `https://cors-anywhere.herokuapp.com/https://ftx.com/api/markets/BTC/USD/candles?resolution=${period[index]}`
       );
+      console.log(res)
       return res
     }
     fetchHistoric().then((res: any) => {
@@ -32,7 +33,7 @@ const Candlestick: FunctionComponent = (props) => {
   useEffect( () => {
     const fectchPrice = async () => {
       const res = await axios.get(
-        'https://cors-anywhere.herokuapp.com/https://ftx.com/api/markets/LUNA/USD'
+        'https://cors-anywhere.herokuapp.com/https://ftx.com/api/markets/BTC/USD'
       );
       return res
     }
@@ -62,7 +63,7 @@ const Candlestick: FunctionComponent = (props) => {
         <Text
           fontSize='24px'
         >
-          LUNA/USD
+          BTC/USD
         </Text>
         <VStack>
           <Text>
