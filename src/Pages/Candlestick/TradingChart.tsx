@@ -45,13 +45,13 @@ const TradingChart: FunctionComponent<Props> = ({ initialData }) => {
   const { data, xScale, xAccessor, displayXAccessor } = ScaleProvider(
     initialData
   );
-  const pricesDisplayFormat = format(".2f");
+  const pricesDisplayFormat = format(".5f");
   const max = xAccessor(data[data.length - 1]);
   const min = xAccessor(data[Math.max(0, data.length - 100)]);
   const xExtents = [min, max + 5];
 
   const candleChartExtents = (data: any) => {
-    return [data.high+20, data.low];
+    return [data.high, data.low];
   };
 
   const gridHeight = height - margin.top - margin.bottom;

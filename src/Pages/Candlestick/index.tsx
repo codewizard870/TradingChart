@@ -4,7 +4,15 @@ import axios from 'axios';
 import TradingChart from './TradingChart';
 import { data } from "./data";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { OHLCSeries } from 'react-financial-charts';
 
+interface OHCL{
+  time: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
 const Candlestick: FunctionComponent = (props) => {
   const [initialData, setInitialData] = useState<any[]>(data);
   const [index, setIndex] = useState(1);
@@ -17,15 +25,27 @@ const Candlestick: FunctionComponent = (props) => {
   }
   useEffect( () => {
     const fetchHistoric = async () => {
-      const period = [300, 900, 3600, 14400, 86400];
+      const period = [1, 7, 14, 30, 86400];
       const res = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://ftx.com/api/markets/BTC/USD/candles?resolution=${period[index]}`
+        `https://api.coingecko.com/api/v3/coins/terra-luna/ohlc?vs_currency=usd&days=${period[index]}`
       );
       console.log(res)
       return res
     }
     fetchHistoric().then((res: any) => {
-      setInitialData(res.data.result)
+      let length = res.data.length;
+      let data = new Array<OHCL>(length);
+
+      for(let i=0; i<length; i++){
+        data[i] = {
+          time: res.data[i][0],
+          open: res.data[i][1],
+          high: res.data[i][2],
+          low: res.data[i][3],
+          close: res.data[i][4]
+        };
+      }
+      setInitialData(data)
     });
   }, [index])
 
@@ -33,13 +53,15 @@ const Candlestick: FunctionComponent = (props) => {
   useEffect( () => {
     const fectchPrice = async () => {
       const res = await axios.get(
-        'https://cors-anywhere.herokuapp.com/https://ftx.com/api/markets/BTC/USD'
+        // 'https://cors-anywhere.herokuapp.com/https://ftx.com/api/markets/BTC/USD'
+        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=terra-luna&order=market_cap_desc&per_page=100&page=1&sparkline=false'
       );
+      console.log(res)
       return res
     }
     const fetch = () => {
       fectchPrice().then((res:any) => {
-        setInfo(res.data.result)
+        setInfo(res.data[0])
       })
     }
     fetch();
@@ -63,14 +85,14 @@ const Candlestick: FunctionComponent = (props) => {
         <Text
           fontSize='24px'
         >
-          BTC/USD
+          LUNC/USD
         </Text>
         <VStack>
           <Text>
             Price
           </Text>
           <Text>
-            {info.price}
+            {info.current_price}
           </Text>
         </VStack>
         <VStack>
@@ -78,7 +100,7 @@ const Candlestick: FunctionComponent = (props) => {
             24h Change
           </Text>
           <Text>
-            {round2Decimal(info.change24h)}
+            {round2Decimal(info.price_change_24h)}
           </Text>
         </VStack>
         <VStack>
@@ -86,7 +108,7 @@ const Candlestick: FunctionComponent = (props) => {
             24h high
           </Text>
           <Text>
-            {info.priceHigh24h}
+            {info.high_24h}
           </Text>
         </VStack>
         <VStack>
@@ -94,7 +116,7 @@ const Candlestick: FunctionComponent = (props) => {
             24h low
           </Text>
           <Text>
-            {info.priceLow24h}
+            {info.low_24h}
           </Text>
         </VStack>
       </HStack>
