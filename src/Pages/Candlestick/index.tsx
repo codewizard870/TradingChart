@@ -25,9 +25,9 @@ const Candlestick: FunctionComponent = (props) => {
   }
   useEffect( () => {
     const fetchHistoric = async () => {
-      const period = [1, 7, 14, 30, 86400];
+      const period = [1, 7, 14, 30, 90];
       const res = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/terra-luna/ohlc?vs_currency=usd&days=${period[index]}`
+        `https://api.coingecko.com/api/v3/coins/wrapped-near/ohlc?vs_currency=usd&days=${period[index]}`
       );
       console.log(res)
       return res
@@ -54,7 +54,7 @@ const Candlestick: FunctionComponent = (props) => {
     const fectchPrice = async () => {
       const res = await axios.get(
         // 'https://cors-anywhere.herokuapp.com/https://ftx.com/api/markets/BTC/USD'
-        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=terra-luna&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=wrapped-near&order=market_cap_desc&per_page=100&page=1&sparkline=false'
       );
       console.log(res)
       return res
@@ -85,7 +85,7 @@ const Candlestick: FunctionComponent = (props) => {
         <Text
           fontSize='24px'
         >
-          LUNC/USD
+          Near/USD
         </Text>
         <VStack>
           <Text>
@@ -128,11 +128,11 @@ const Candlestick: FunctionComponent = (props) => {
       >
         <Tabs onChange={(index) => setTabIndex(index)} cursor='pointer' defaultIndex={index}>
           <TabList color='white'  border='solid 0px'>
-            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>5m</Tab>
-            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>15m</Tab>
-            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>1h</Tab>
-            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>4h</Tab>
-            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>1d</Tab>
+            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>1</Tab>
+            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>7</Tab>
+            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>14</Tab>
+            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>30</Tab>
+            <Tab bg='#232c4b' _selected={{ bg: '#2e3ed7' }} _hover={{bg: '#283780'}}>90</Tab>
           </TabList>
         </Tabs>
         <Flex pt='10px' justify='center'>
