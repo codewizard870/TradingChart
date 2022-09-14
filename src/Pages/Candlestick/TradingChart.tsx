@@ -32,11 +32,14 @@ import sma from "@react-financial-charts/indicators/lib/calculator/sma";
 import rsi from "@react-financial-charts/indicators/lib/calculator/rsi";
 import macd from "@react-financial-charts/indicators/lib/calculator/macd";
 
-interface Props {
-  initialData: any[];
-}
+import {data as initialData} from "./data";
 
-const TradingChart = ({initialData}: Props) => {
+// interface Props {
+//   initialData: any[];
+// }
+
+// const TradingChart = ({initialData}: Props) => {
+const TradingChart = () => {
   const ScaleProvider = discontinuousTimeScaleProviderBuilder().inputDateAccessor(
     (d) => new Date(d.time)
   );
@@ -59,7 +62,7 @@ const TradingChart = ({initialData}: Props) => {
 
   const ema12 = ema()
     .id(1)
-    .options({ windowSize: 4 })
+    .options({ windowSize: 12 })
     .merge((d: any, c: any) => {
       d.ema12 = c;
     })
@@ -67,7 +70,7 @@ const TradingChart = ({initialData}: Props) => {
 
   const ema26 = ema()
     .id(2)
-    .options({ windowSize: 8 })
+    .options({ windowSize: 26 })
     .merge((d: any, c: any) => {
       d.ema26 = c;
     })

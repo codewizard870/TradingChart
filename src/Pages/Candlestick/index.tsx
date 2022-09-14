@@ -137,7 +137,8 @@ const Candlestick: FunctionComponent = (props) => {
           </TabList>
         </Tabs>
         <Flex pt='10px' justify='center'>
-          <TradingChart initialData={initialData} />
+          {/* <TradingChart initialData={initialData} /> */}
+          <TradingChart />
         </Flex>
       </Flex>
     </Flex>
