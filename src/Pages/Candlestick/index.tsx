@@ -14,7 +14,7 @@ interface OHCL{
   close: number;
 }
 const Candlestick: FunctionComponent = (props) => {
-  const [initialData, setInitialData] = useState<any[]>(data);
+  const [initialData, setInitialData] = useState<any[]>([]);
   const [index, setIndex] = useState(1);
 
   const setTabIndex = (index: number) => {
@@ -124,7 +124,8 @@ const Candlestick: FunctionComponent = (props) => {
         mt='30px'
         direction='column'
         w='100%'
-        background='#04306b'
+        // background='#04306b'
+        background = "white"
       >
         <Tabs onChange={(index) => setTabIndex(index)} cursor='pointer' defaultIndex={index}>
           <TabList color='white'  border='solid 0px'>
